@@ -1,0 +1,10 @@
+*~
+.DS_Store
+.cache
+
+.dap-breakpoints
+.lsp-session*
+auto-save-list
+elpa
+url
+
