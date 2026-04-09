@@ -29,10 +29,9 @@
 ;;         lsp-ui, flycheck, company,
 ;;         lsp-treemacs, helm-lsp, lsp-ivy
 ;;         dap-mode, lsp-mode
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'modus-operandi :no-confirm)
+(load-theme 'wombat :no-confirm)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -57,8 +56,8 @@
   (interactive)
   (let ((deactivate-mark t))
     (call-process-region (point) (mark) "pbcopy")
-    (setq mark-active nil) ;; I prefer to unset region afterward
-    (message "Copied"))) ;; feedback
+    (setq mark-active nil)
+    (message "Copied")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
