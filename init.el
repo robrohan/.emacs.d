@@ -4,10 +4,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("6dcf1ca4c7432773084b9d52649ee5eb2c663131c4c06859f648dea98d9acb3e"
+     default))
  '(package-selected-packages
    '(clang-format company dap-mode flycheck go-mode helm-lsp lsp-ivy
-		  lsp-treemacs lsp-ui markdown-mode standard-themes
-		  typescript-mode)))
+		  lsp-treemacs lsp-ui markdown-mode rainbow-delimiters
+		  standard-themes typescript-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,14 +24,16 @@
 ;; (unless package-archive-contents (package-refresh-contents))
 ;; (package-install 'clang-format)
 
-(add-to-list 'exec-path "/opt/homebrew/bin")
-(setenv "PATH" (concat "/opt/homebrew/bin:/opt/homebrew/Cellar/clang-format/22.1.1/bin/:" (getenv "PATH")))
+;(add-to-list 'exec-path "/opt/homebrew/bin")
+;(setenv "PATH" (concat "/opt/homebrew/bin:/opt/homebrew/Cellar/clang-format/22.1.1/bin/:" (getenv "PATH")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install:
 ;;         lsp-ui, flycheck, company,
 ;;         lsp-treemacs, helm-lsp, lsp-ivy
-;;         dap-mode, lsp-mode
+;;         dap-mode, lsp-mode, rainbow-delimiters
+;;
+;;         jupyter, ein? -=> Seem dodge
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (load-theme 'wombat :no-confirm)
@@ -50,7 +55,7 @@
 (treemacs)
 (treemacs-project-follow-mode t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun pbcopy ()
   (interactive)
@@ -58,6 +63,12 @@
     (call-process-region (point) (mark) "pbcopy")
     (setq mark-active nil)
     (message "Copied")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package rainbow-delimiters
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,4 +85,5 @@
 (add-hook 'javascript-mode-hook 'lsp-deferred)
 ;; $ npm install -g sql-language-server
 (add-hook 'sql-mode-hook 'lsp-deferred)
+(add-hook 'c-mode-hook 'lsp-deferred)
 
