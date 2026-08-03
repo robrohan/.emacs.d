@@ -18,6 +18,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+(setq inhibit-startup-screen t)
+(setq-default tab-width 4)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -52,8 +55,16 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq treemacs--is-setup nil)  ;; no-op if not used; safe to keep
+(setq treemacs-follow-after-init nil)
+(setq treemacs-follow-mode nil)
+;; Ensure Treemacs uses the "same window / reuse" policy where possible
+(setq treemacs-persist-fileweave nil)
+(setq treemacs-select-window-method nil)
+(with-eval-after-load 'treemacs
+  (setq treemacs-display-in-side-window t)
+  (treemacs))
 (treemacs)
-(treemacs-project-follow-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -70,7 +81,6 @@
   :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'lsp-mode)
@@ -86,4 +96,14 @@
 ;; $ npm install -g sql-language-server
 (add-hook 'sql-mode-hook 'lsp-deferred)
 (add-hook 'c-mode-hook 'lsp-deferred)
+(add-hook 'cpp-mode-hook 'lsp-deferred)
+(add-hook 'go-mode-hook 'lsp-deferred)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq initial-scratch-message nil)
+
+(defun my-disable-scratch-buffer ()
+  (let ((buf (get-buffer "*scratch*")))
+    (when buf
+      (kill-buffer buf))))
+(add-hook 'emacs-startup-hook #'my-disable-scratch-buffer)
