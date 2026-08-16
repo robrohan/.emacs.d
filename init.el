@@ -55,16 +55,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq treemacs--is-setup nil)  ;; no-op if not used; safe to keep
-(setq treemacs-follow-after-init nil)
-(setq treemacs-follow-mode nil)
-;; Ensure Treemacs uses the "same window / reuse" policy where possible
-(setq treemacs-persist-fileweave nil)
-(setq treemacs-select-window-method nil)
-(with-eval-after-load 'treemacs
-  (setq treemacs-display-in-side-window t)
-  (treemacs))
-(treemacs)
+(setq treemacs-follow-after-init t)
+(setq treemacs-select-window-method t)
+(setq treemacs-display-in-side-window t)
+(setq treemacs-follow-mode t)
+(setq treemacs-project-follow-mode t)
+;(treemacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -107,3 +103,9 @@
     (when buf
       (kill-buffer buf))))
 (add-hook 'emacs-startup-hook #'my-disable-scratch-buffer)
+
+
+(global-set-key (kbd "TAB") 'self-insert-command)
+(global-set-key (kbd "TAB") 'tab-to-tab-stop)
+(setq-default tab-width 4)
+(setq-default tab-stop-list (list 4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108))
